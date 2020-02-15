@@ -3,7 +3,7 @@ start=`gdate +%s.%N`
 ## If you come from bash you might have to change your $PATH.
 ##Open Tmux
 source ~/.profile
-~/bin/cowCommand.sh
+#~/bin/cowCommand.sh
 source ~/.paths.sh
 #
 ## Path to your oh-my-zsh installation.
@@ -17,14 +17,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 #
 fpath=(/usr/local/share/zsh-completions /usr/local/share/zsh-completions/conda-zsh-completion $fpath)
-#setopt LOCAL_OPTIONS NO_NOTIFY 
+#setopt LOCAL_OPTIONS NO_NOTIFY
 autoload -U +X compinit && compinit
 autoload -U +X bashcompinit && bashcompinit
-autoload -U promptinit && promptinit       
-autoload -Uz run-help                      
-autoload -Uz run-help-git                  
-autoload -Uz run-help-svn                  
-autoload -Uz run-help-svk                  
+autoload -U promptinit && promptinit
+autoload -Uz run-help
+autoload -Uz run-help-git
+autoload -Uz run-help-svn
+autoload -Uz run-help-svk
 unalias run-help
 alias help=run-help
 #
@@ -42,11 +42,15 @@ plugins=(
   pip
   python
   brew
-  vi-mode  
+  vi-mode
   zsh-syntax-highlighting
   history-substring-search
-  cd-gitroot
-) 
+  docker
+  docker-compose
+  docker-machine
+  fzf
+  zsh-better-npm-completion
+)
 source $ZSH/oh-my-zsh.sh
 setopt vi
 autoload -U edit-command-line
@@ -80,8 +84,10 @@ setopt EXTENDED_HISTORY
 export FZF_DEFAULT_OPTS='--height=70% --preview "bat --color always {} || cat {}" --preview-window=right:60%:wrap'
 export FZF_DEFAULT_COMMAND='git ls-tree -r --name-only HEAD || rg --files 2>/dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
 source "$HOME/.fzf-extras/fzf-extras.zsh"
 source "$HOME/.fzf-extras/fzf-extras.sh"
+. /usr/local/etc/profile.d/autojump.sh
 
 #
 mkcdir ()
@@ -94,7 +100,6 @@ mkcdir ()
 source ~/.aliases
 source ~/.functions
 alias pman='man-preview'
-alias cdg="cd-gitroot"
 alias ls="gls --group-directories-first --color=tty -XhF"
 #
 ##ZSH-SYTAX-HIGHLIGHTING
@@ -116,7 +121,6 @@ eval "$(jenv init -)"
 ## >>> conda initialize >>>
         . "/usr/local/anaconda3/etc/profile.d/conda.sh"
 #
-source ~/.fzf.zsh
 ## To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
